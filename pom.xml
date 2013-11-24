@@ -10,6 +10,7 @@
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  		<outputDirectory.war>${project.build.directory}/${project.build.finalName}</outputDirectory.war>
 	</properties>
 	
 	<repositories>
@@ -36,7 +37,9 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<deployTarget>dev</deployTarget>
+				<maven.test.skip>false</maven.test.skip>
+				<deploy.phase>dev</deploy.phase>
+				<outputDirectory.war>../deploy/${project.artifactId}</outputDirectory.war>
 			</properties>
 		</profile>
 		<profile>
