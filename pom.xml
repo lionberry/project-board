@@ -6,9 +6,11 @@
   <packaging>war</packaging>
   
 	<properties>
-		<java-version>1.6</java-version>
+		<jdk.version>1.6</jdk.version>
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<deploy.version>0.0.1-${deploy.phase}-SNAPSHOT</deploy.version>
+		<source-encoding>UTF-8</source-encoding>
+		<resource-encoding>UTF-8</resource-encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -41,7 +43,7 @@
 		<profile>
 			<id>local</id>
 			<properties>
-				<deployTarget>local</deployTarget>
+				<deploy.phase>local</deploy.phase>
 			</properties>
 		</profile>
 	</profiles>
@@ -178,10 +180,21 @@
 				<directory>src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>src/main/resources-${deployTarget}</directory>
+				<directory>src/main/resources-env/${deploy.phase}</directory>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
         <plugins>
+       		<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${outputDirectory.war}</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <version>2.9</version>
@@ -199,15 +212,30 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <compilerArgument>-Xlint:all</compilerArgument>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+						<encoding>${source-encoding}</encoding>
+					</configuration>
             </plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+						</resource>
+						<resource>
+							<directory>src/main/resources-env/${deploy.phase}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+						</resource>
+					</webResources>
+					<webappDirectory>${outputDirectory.war}</webappDirectory>
+				</configuration>
+			</plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
