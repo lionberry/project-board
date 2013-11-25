@@ -17,14 +17,8 @@
 	
 	<repositories>
 		<repository>
-		  <id>nhn.release.repository</id>
-		  <url>http://repo.nhncorp.com/maven2/</url>
-		  <releases>
-		   <enabled>true</enabled>
-		  </releases>
-		  <snapshots>
-		   <enabled>false</enabled>
-		  </snapshots>
+			<id>springsource-repo</id>
+			<url>http://repo.springsource.org/release</url>
 		</repository>
  	</repositories>
  	 
@@ -137,21 +131,6 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>    
-		<dependency>
-			<groupId>cubrid</groupId>
-			<artifactId>cubrid-jdbc</artifactId>
-			<version>9.1.0.0212</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ibatis</groupId>
-			<artifactId>ibatis2-sqlmap</artifactId>
-			<version>2.3.4.726-p1</version>
-		</dependency>
-		<dependency>
-   			<groupId>commons-dbcp</groupId>
-   			<artifactId>commons-dbcp</artifactId>
-  			 <version>1.4-p2</version>  
-  		</dependency>
   		<dependency>
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
@@ -163,12 +142,6 @@
 	        <groupId>commons-lang</groupId>
 	        <artifactId>commons-lang</artifactId>
 	        <version>1.0</version>
-	      </dependency>
-	      
-	      <dependency>
-	        <groupId>org.json</groupId>
-	        <artifactId>json</artifactId>
-	        <version>1.0.0</version>
 	      </dependency>
 	</dependencies>
   <build>
@@ -187,12 +160,21 @@
         <plugins>
        		<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
 				<configuration>
 					<filesets>
 						<fileset>
 							<directory>${outputDirectory.war}</directory>
 						</fileset>
 					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<encoding>${resource-encoding}</encoding>
 				</configuration>
 			</plugin>
             <plugin>
