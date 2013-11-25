@@ -206,10 +206,6 @@
 							<directory>src/main/resources</directory>
 							<targetPath>WEB-INF/classes</targetPath>
 						</resource>
-						<resource>
-							<directory>src/main/resources-env/${deploy.phase}</directory>
-							<targetPath>WEB-INF/classes</targetPath>
-						</resource>
 					</webResources>
 					<webappDirectory>${outputDirectory.war}</webappDirectory>
 				</configuration>
