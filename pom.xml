@@ -152,10 +152,6 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
-			<resource>
-				<directory>src/main/resources-env/${deploy.phase}</directory>
-				<filtering>true</filtering>
-			</resource>
 		</resources>
         <plugins>
        		<plugin>
